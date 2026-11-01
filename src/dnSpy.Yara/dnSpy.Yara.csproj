@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Builds dnSpy.Yara.x.dll, a dnSpyEx extension. dnSpy loads every *.x.dll under <dnSpy>\bin\Extensions\.
+    It is compiled against the binaries of an installed dnSpyEx (.NET build) so it matches what it is loaded into.
+    Override the location with: dotnet build -p:DnSpyBin=C:\path\to\dnSpy\bin
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>dnSpy.Yara.x</AssemblyName>
+    <RootNamespace>dnSpy.Yara</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Version>1.0.0</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <DnSpyBin Condition=" '$(DnSpyBin)' == '' ">$(MSBuildThisFileDirectory)..\..\.tools\dnSpy\bin</DnSpyBin>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <DnSpyRef Include="dnlib;dnSpy.Contracts.DnSpy;dnSpy.Contracts.Logic;System.ComponentModel.Composition;Microsoft.VisualStudio.Text.Data;Microsoft.VisualStudio.Text.UI;Microsoft.VisualStudio.Text.UI.Wpf;Microsoft.VisualStudio.CoreUtility" />
+    <Reference Include="@(DnSpyRef)">
+      <HintPath>$(DnSpyBin)\%(Identity).dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
