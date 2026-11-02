@@ -42,7 +42,16 @@ The rule's `author` meta comes from the `Author` attribute of the dnSpy.Yara sec
 - YARA quietly stops matching hex strings that contain wildcards once they extend more than about 1 KB from their atom. Exact-byte strings aren't affected. So long wildcarded selections are split, on instruction boundaries, into `$il_N_0`, `$il_N_1`, ... parts of at most 1000 bytes. The rule's condition then requires the parts to be adjacent: `for any i in (1..#il_0_0) : ($il_0_1 at @il_0_0[i] + 996 and ...)`.
 - A string whose longest run of fixed bytes is under 4 gets a `// note:` warning, because YARA will flag it as slow.
 
-## Build / install
+## Install from a release
+
+1. Download `dnSpy.Yara-vX.Y.Z.zip` from the [Releases](https://github.com/HullaBrian/dnspyex-yara/releases) page.
+2. Extract it into `<dnSpy>\bin\Extensions\`, so you end up with `<dnSpy>\bin\Extensions\dnSpy.Yara\dnSpy.Yara.x.dll`.
+3. If Windows blocked the download, right-click the zip → Properties → **Unblock** before extracting.
+4. Restart dnSpy.
+
+Requires the **.NET build** of dnSpyEx 6.5+ (not the .NET Framework build).
+
+## Build / install from source
 
 Requires the .NET 10 SDK and the **.NET build** of dnSpyEx (not the .NET Framework build).
 
